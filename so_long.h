@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:00:30 by rojornod          #+#    #+#             */
-/*   Updated: 2025/01/08 16:44:59 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/01/09 15:46:43 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,28 @@
 #include "lib/ft_printf/ft_printf.h"
 #define TILE_SIZE 64
 
+typedef struct s_game
+{
+   	mlx_t		*mlx;
+    int			move_count;
+	int			collectible_count;
+    char		**map;
+    mlx_image_t	*player;
+	mlx_image_t	*collectible;
+} t_game;
+void place_collectibes(mlx_t *mlx, char **map);
+// typedef struct s_textures
+// {
+//     mlx_t *mlx;
+//     mlx_image_t *player;
+// 	mlx_image_t *collect;
+// 	mlx_image_t *wall;
+// 	mlx_image_t *floor;
+// 	mlx_image_t *enemy;
+// } t_textures;
+
 char **read_map(const char *filename);
 void place_map(mlx_t *mlx, char **map);
-void place_player(mlx_t *mlx, char **map);
+void place_player(t_game *game);
+//void place_player(t_game *game, t_textures *textures);
+//void load_textures(t_textures *textures, mlx_t *mlx);

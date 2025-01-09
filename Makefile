@@ -1,12 +1,12 @@
 NAME = so_long
-CFLAGS = -Wextra -Wall -Werror -Wunreachable-code -Ofast
-SRC = so_long.c map_rules.c lib/get_next_line/get_next_line.c lib/get_next_line/get_next_line_utils.c
+CFLAGS = -Wextra -Wall -Werror -Wunreachable-code -Ofast -g
+SRC = textures.c so_long.c map_rules.c lib/get_next_line/get_next_line.c lib/get_next_line/get_next_line_utils.c
 OBJS = $(SRC:.c=.o)
 MLX_LIB_DIR = lib/mlx42/build
 MLX_LIB = mlx42
 MLX_FLAGS = -ldl -lglfw -pthread -lm
 INCLUDES = -Imlx42/include -Ilibft -Iget_next_line -Ift_printf
-LIBFT = lib/libft/libft.a
+#LIBFT = lib/libft/libft.a
 PRINTF = lib/ft_printf/libftprintf.a
 
 all: $(NAME)
@@ -17,21 +17,21 @@ $(NAME): $(OBJS) $(LIBFT) $(PRINTF)
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
-$(LIBFT):
-	make -C libft
+#$(LIBFT):
+#	make -C lib/libft
 
 $(PRINTF):
-	make -C ft_printf
+	make -C lib/ft_printf
 
 clean:
 	rm -f $(OBJS)
-	make -C libft clean
-	make -C ft_printf clean
+#	make -C lib/libft clean
+	make -C lib/ft_printf clean
 
 fclean: clean
 	rm -f $(NAME)
-	make -C libft fclean
-	make -C ft_printf fclean
+#	make -C lib/libft clean
+	make -C lib/ft_printf fclean
 
 re: fclean all
 
