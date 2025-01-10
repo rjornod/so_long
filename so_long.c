@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 15:04:42 by rojornod          #+#    #+#             */
-/*   Updated: 2025/01/10 11:17:15 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:41:19 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,8 +74,8 @@ void key_handler(mlx_key_data_t keydata, void *param)
 //prints text on the top left of the window
 void	text(mlx_t *mlx)
 {
-	mlx_put_string(mlx, "Collect all the presents!", 20, 10);
-	mlx_put_string(mlx, "Get to your sleigh!", 20, 35);
+	mlx_put_string(mlx, "Oh no! Your elves are trying to steal your presents!", 20, 10);
+	mlx_put_string(mlx, "Collect all your presents and get to your sleigh!", 20, 35);
 	
 }
 int32_t main(void)
@@ -95,7 +95,8 @@ int32_t main(void)
         mlx_terminate(game.mlx);
         return (EXIT_FAILURE);
     }
-
+    
+    validate_map_elements("map/map.ber");
     mlx_texture_t *character = mlx_load_png("assets/santa.png");
     if (!character)
     {

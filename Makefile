@@ -1,6 +1,6 @@
 NAME = so_long
 CFLAGS = -Wextra -Wall -Werror -Wunreachable-code -Ofast -g
-SRC = textures.c so_long.c map_rules.c lib/get_next_line/get_next_line.c lib/get_next_line/get_next_line_utils.c
+SRC = map_validation.c textures.c so_long.c map_rules.c lib/get_next_line/get_next_line.c lib/get_next_line/get_next_line_utils.c
 OBJS = $(SRC:.c=.o)
 MLX_LIB_DIR = lib/mlx42/build
 MLX_LIB = mlx42

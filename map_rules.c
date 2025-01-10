@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:46:24 by rojornod          #+#    #+#             */
-/*   Updated: 2025/01/10 10:52:52 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:08:15 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 
 void place_map(mlx_t *mlx, char **map)
 {
-   	mlx_texture_t *wall_texture = mlx_load_png("assets/wall.png");
-    mlx_texture_t *floor_texture = mlx_load_png("assets/floor.png");
+   	mlx_texture_t *wall_texture = mlx_load_png("assets/ice.png");
+    mlx_texture_t *floor_texture = mlx_load_png("assets/snow.png");
 
     if (!wall_texture || !floor_texture)
     {
@@ -101,7 +101,7 @@ void place_collectibes(mlx_t *mlx, char **map)
 }
 void place_exit(mlx_t *mlx, char **map)
 {
-	mlx_texture_t *exit_texture = mlx_load_png("assets/exit.png");
+	mlx_texture_t *exit_texture = mlx_load_png("assets/exit3.png");
     int i = 0;
 
     if (!exit_texture)
