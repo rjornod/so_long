@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:00:30 by rojornod          #+#    #+#             */
-/*   Updated: 2025/01/09 15:46:43 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:35:40 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct s_game
     char		**map;
     mlx_image_t	*player;
 	mlx_image_t	*collectible;
+	mlx_image_t	*exit;
 } t_game;
 void place_collectibes(mlx_t *mlx, char **map);
 // typedef struct s_textures
@@ -43,5 +44,6 @@ void place_collectibes(mlx_t *mlx, char **map);
 char **read_map(const char *filename);
 void place_map(mlx_t *mlx, char **map);
 void place_player(t_game *game);
+void place_exit(mlx_t *mlx, char **map);
 //void place_player(t_game *game, t_textures *textures);
 //void load_textures(t_textures *textures, mlx_t *mlx);

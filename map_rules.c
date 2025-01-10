@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:46:24 by rojornod          #+#    #+#             */
-/*   Updated: 2025/01/09 15:51:17 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/01/10 10:52:52 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,8 @@ void place_map(mlx_t *mlx, char **map)
 {
    	mlx_texture_t *wall_texture = mlx_load_png("assets/wall.png");
     mlx_texture_t *floor_texture = mlx_load_png("assets/floor.png");
-    mlx_texture_t *exit_texture = mlx_load_png("assets/exit.png");
-    //mlx_texture_t *collectible_texture = mlx_load_png("assets/collectible.png");
 
-    if (!wall_texture || !exit_texture || !floor_texture)
+    if (!wall_texture || !floor_texture)
     {
         perror("Failed to load textures");
         return;
@@ -41,13 +39,8 @@ void place_map(mlx_t *mlx, char **map)
             mlx_image_t *image = NULL;
             if (map[i][j] == '1')
                 image = mlx_texture_to_image(mlx, wall_texture);
-            else if (map[i][j] == '0' || map[i][j] == 'P' || map[i][j] == 'C')
+            else if (map[i][j] == '0' || map[i][j] == 'P' || map[i][j] == 'C' || map[i][j] == 'E')
         		image = mlx_texture_to_image(mlx, floor_texture);
-            else if (map[i][j] == 'E')
-                image = mlx_texture_to_image(mlx, exit_texture);
-            // else if (map[i][j] == 'C')
-            //     image = mlx_texture_to_image(mlx, collectible_texture);
-
             if (image)
                 mlx_image_to_window(mlx, image, j * TILE_SIZE, i * TILE_SIZE);
             j++;
@@ -56,37 +49,9 @@ void place_map(mlx_t *mlx, char **map)
     }
     mlx_delete_texture(wall_texture);
     mlx_delete_texture(floor_texture);
-    mlx_delete_texture(exit_texture);
-    // mlx_delete_texture(collectible_texture);
+
 }	
 
-void place_collectibes(mlx_t *mlx, char **map)
-{
-	mlx_texture_t *collectible_texture = mlx_load_png("assets/collectible.png");
-
-    if (!collectible_texture)
-    {
-        perror("Failed to load textures");
-        return;
-    }
-    int i = 0;
-    while (map[i] != NULL)
-    {
-        int j = 0;
-        while (map[i][j] != '\0')
-        {
-            mlx_image_t *image = NULL;
-				if (map[i][j] == 'C')
-                image = mlx_texture_to_image(mlx, collectible_texture);
-
-            if (image)
-                mlx_image_to_window(mlx, image, j * TILE_SIZE, i * TILE_SIZE);
-            j++;
-        }
-        i++;
-    }
-    mlx_delete_texture(collectible_texture);
-}	
 void place_player(t_game *game)
 {
     int i = 0;
@@ -106,6 +71,61 @@ void place_player(t_game *game)
         i++;
     }
 }
+
+void place_collectibes(mlx_t *mlx, char **map)
+{
+	mlx_texture_t *collectible_texture = mlx_load_png("assets/collectible.png");
+    int i = 0;
+
+    if (!collectible_texture)
+    {
+        perror("Failed to load textures");
+        return;
+    }
+    while (map[i] != NULL)
+    {
+        int j = 0;
+        while (map[i][j] != '\0')
+        {
+            mlx_image_t *image = NULL;
+				if (map[i][j] == 'C')
+                image = mlx_texture_to_image(mlx, collectible_texture);
+
+            if (image)
+                mlx_image_to_window(mlx, image, j * TILE_SIZE, i * TILE_SIZE);
+            j++;
+        }
+        i++;
+    }
+    mlx_delete_texture(collectible_texture);
+}
+void place_exit(mlx_t *mlx, char **map)
+{
+	mlx_texture_t *exit_texture = mlx_load_png("assets/exit.png");
+    int i = 0;
+
+    if (!exit_texture)
+    {
+        perror("Failed to load textures");
+        return;
+    }
+    while (map[i] != NULL)
+    {
+        int j = 0;
+        while (map[i][j] != '\0')
+        {
+            mlx_image_t *image = NULL;
+				if (map[i][j] == 'E')
+                image = mlx_texture_to_image(mlx, exit_texture);
+
+            if (image)
+                mlx_image_to_window(mlx, image, j * TILE_SIZE, i * TILE_SIZE);
+            j++;
+        }
+        i++;
+    }
+    mlx_delete_texture(exit_texture);
+}	
 char **read_map(const char *filename)
 {
 	char	*line;

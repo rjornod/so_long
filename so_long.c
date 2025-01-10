@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 15:04:42 by rojornod          #+#    #+#             */
-/*   Updated: 2025/01/09 15:50:32 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/01/10 11:17:15 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,11 @@ void key_handler(mlx_key_data_t keydata, void *param)
 {
     t_game *game = (t_game *)param;
 
-    if (mlx_is_key_down(game->mlx, MLX_KEY_ESCAPE))
+    if (keydata.key == MLX_KEY_ESCAPE && keydata.action == MLX_PRESS)
+    {
+        ft_putendl_fd("Goodbye 🎅", 1);
         mlx_close_window(game->mlx);
+    }
     if (keydata.action == MLX_PRESS)
     {
         if (keydata.key == MLX_KEY_W)
@@ -100,7 +103,6 @@ int32_t main(void)
         mlx_terminate(game.mlx);
         return (EXIT_FAILURE);
     }
-
     game.player = mlx_texture_to_image(game.mlx, character);
     if (!game.player)
     {
@@ -109,11 +111,11 @@ int32_t main(void)
         mlx_terminate(game.mlx);
         return (EXIT_FAILURE);
     }
-
     place_map(game.mlx, game.map);
     mlx_image_to_window(game.mlx, game.player, 0, 0);
     place_player(&game);
 	place_collectibes(game.mlx, game.map);
+    place_exit(game.mlx, game.map);
 
     mlx_key_hook(game.mlx, &key_handler, &game);
     text(game.mlx);
