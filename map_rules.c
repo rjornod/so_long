@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:46:24 by rojornod          #+#    #+#             */
-/*   Updated: 2025/01/13 15:09:24 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:43:51 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,10 +147,13 @@ char **read_map(const char *filename)
 	}
 	i = 0;
 	while ((line = get_next_line(fd)) != NULL)
-	{
-		map[i] = line;
-		i++;
-	}
+    {
+        size_t len = ft_strlen(line);
+        if (len > 0 && line[len - 1] == '\n')
+            line[len - 1] = '\0';
+        map[i] = line;
+        i++;
+    }
 	map[i] = NULL;
 	close(fd);
 	return (map);
