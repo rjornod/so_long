@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:00:30 by rojornod          #+#    #+#             */
-/*   Updated: 2025/01/10 16:48:09 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/01/14 16:09:03 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,10 +71,15 @@ typedef struct s_game
 	t_image		*textures;
 }	t_game;
 
-void	validate_map_elements(char *map);
 void	error_message(char *message);
 char 	**read_map(const char *filename);
 void 	place_map(mlx_t *mlx, char **map);
 void 	place_collectibles(mlx_t *mlx, char **map);
 void 	place_exit(mlx_t *mlx, char **map);
 void	place_player(t_game *game);
+void 	validation_messages(int player_count, int collect_count, int exit_count);
+void	validate_map_elements(char **map);
+void 	validate_last_line(char **map);
+void 	validate_first_line(char **map);
+void 	validate_map_closure(char **map);
+// void	validate_map_height_width(char *map);

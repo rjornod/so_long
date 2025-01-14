@@ -30,7 +30,7 @@
 
 # # Executables
 # *.exe
-# *.out
+*.out
 # *.app
 # *.i*86
 # *.x86_64
@@ -42,6 +42,6 @@
 # *.idb
 # *.pdb
 
-
-
+*.o
+*.pdf
 .vscode

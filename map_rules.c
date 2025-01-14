@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:46:24 by rojornod          #+#    #+#             */
-/*   Updated: 2025/01/10 16:08:15 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/01/13 15:09:24 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,11 +131,7 @@ char **read_map(const char *filename)
 	char	*line;
 	int		i;
 	int		fd;
-	int		player_counter;
-	int		exit_counter;
 	
-	player_counter = 0;
-	exit_counter = 0;
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 	{
@@ -154,31 +150,6 @@ char **read_map(const char *filename)
 	{
 		map[i] = line;
 		i++;
-	}
-	map[i] = NULL;
-	i = 0;
-	while(map[i] != NULL)
-	{
-		int j = 0;
-		while (map[i][j] != '\0')
-		{
-			if (map[i][j] == 9 || map[i][j] == 11 || map[i][j] == 12 || map[i][j] == 13 || map[i][j] == 32)
-				j++;
-			if (map[i][j] == 'P')
-            	player_counter++;
-        	if (map[i][j] == 'E')
-            	exit_counter++;
-       	 	j++;
-			//ft_printf("%c", map[i][j]);
-		}
-		i++;
-	}
-	if (exit_counter != 1 || player_counter != 1)
-	{
-		ft_printf("Error : invalid number of players or exits\n");
-		ft_printf("exits: %d\n", exit_counter);
-		ft_printf("players: %d\n", player_counter);
-		exit(EXIT_FAILURE);
 	}
 	map[i] = NULL;
 	close(fd);

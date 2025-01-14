@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 15:04:42 by rojornod          #+#    #+#             */
-/*   Updated: 2025/01/10 15:41:19 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/01/14 14:45:41 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int32_t main(void)
         return (EXIT_FAILURE);
     }
     
-    validate_map_elements("map/map.ber");
+    validate_map_elements(game.map);
     mlx_texture_t *character = mlx_load_png("assets/santa.png");
     if (!character)
     {
