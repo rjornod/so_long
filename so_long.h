@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:00:30 by rojornod          #+#    #+#             */
-/*   Updated: 2025/01/14 16:09:03 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/01/15 13:11:24 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,5 @@ void	validate_map_elements(char **map);
 void 	validate_last_line(char **map);
 void 	validate_first_line(char **map);
 void 	validate_map_closure(char **map);
+
 // void	validate_map_height_width(char *map);

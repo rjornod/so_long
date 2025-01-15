@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 14:00:17 by rojornod          #+#    #+#             */
-/*   Updated: 2025/01/14 17:42:12 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/01/15 12:15:19 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void validate_map_closure(char **map)
 {
     int i = 0;
     size_t row_length;
+
 
     row_length = ft_strlen(map[0]) - 1;
     int j = 0;

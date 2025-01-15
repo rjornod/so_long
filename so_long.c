@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 15:04:42 by rojornod          #+#    #+#             */
-/*   Updated: 2025/01/14 14:45:41 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/01/15 13:10:16 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "so_long.h"
 
 //specify window size
-#define WIDTH 800
+#define WIDTH 1800
 #define HEIGHT 800
 
 
@@ -83,12 +83,14 @@ int32_t main(void)
     t_game game;
     game.move_count = 0;
 
+    //initialize MLX42
     if (!(game.mlx = mlx_init(WIDTH, HEIGHT, "MLX42 TESTING", true)))
     {
         puts(mlx_strerror(mlx_errno));
         return (EXIT_FAILURE);
     }
 
+    //read map
     game.map = read_map("map/map.ber");
     if (!game.map)
     {
@@ -96,7 +98,10 @@ int32_t main(void)
         return (EXIT_FAILURE);
     }
     
+    //go through map and check if its valid
     validate_map_elements(game.map);
+    
+    //initialize player image
     mlx_texture_t *character = mlx_load_png("assets/santa.png");
     if (!character)
     {
@@ -112,16 +117,20 @@ int32_t main(void)
         mlx_terminate(game.mlx);
         return (EXIT_FAILURE);
     }
+    
+    //place images on the map
     place_map(game.mlx, game.map);
     mlx_image_to_window(game.mlx, game.player, 0, 0);
     place_player(&game);
 	place_collectibes(game.mlx, game.map);
     place_exit(game.mlx, game.map);
 
+    //mlx hooks and loops
     mlx_key_hook(game.mlx, &key_handler, &game);
     text(game.mlx);
     mlx_loop(game.mlx);
 
+    //clean up
     mlx_delete_image(game.mlx, game.player);
     mlx_delete_texture(character);
     mlx_terminate(game.mlx);
