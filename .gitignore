@@ -45,3 +45,4 @@
 *.o
 *.pdf
 .vscode
+/so_long_tester

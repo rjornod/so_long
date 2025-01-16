@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 14:00:17 by rojornod          #+#    #+#             */
-/*   Updated: 2025/01/15 12:15:19 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/01/16 17:02:55 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,17 +40,35 @@ void validate_map_elements(char **map)
     ft_printf("Collectible count: %d\n", collect_count);
     ft_printf("Exit count: %d\n", exit_count);
     validate_map_closure(map);
+    //validate_characters(map);
     validation_messages(player_count, collect_count, exit_count);
 }
-
-void validate_map_closure(char **map)
+// void    validate_characters(char **map)
+// {
+//     int j;
+//     int i;
+    
+//     i = 0;
+//     j = 0;
+//     char	*allowed_characters = "10EPC";
+//     char	*in;
+//     while (map[i])
+//     // {
+// 	// 	while
+//     //     in = ft_strchr(allowed_characters, map[i][j]);
+// 	// 	if (!in)
+// 	// 		ft_printf("invalid character");
+//     //     j++;
+//     // }
+// }
+void    validate_map_closure(char **map)
 {
     int i = 0;
     size_t row_length;
 
-
     row_length = ft_strlen(map[0]) - 1;
     int j = 0;
+    j = 0;
     while (j < ((int)row_length))
     {
         if (map[0][j] != '1')
@@ -60,9 +78,12 @@ void validate_map_closure(char **map)
     while (map[i])
     {
         if ((ft_strlen(map[i]) -1) != row_length)
-            ft_printf("All rows in the map must have the same length");
-        if (map[i][0] != '1' || map[i][row_length - 1] != '1')
+            error_message("The map is not rectangular");
+        if (map[i][0] != '1' || map[i][row_length] != '1')
+        {
+           // ft_printf("\n[%d] [%s]\n", i, map[i]);
             error_message("The map is not closed properly on the sides");
+        }
         i++;
     }
     j = 0;

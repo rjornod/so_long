@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 15:04:42 by rojornod          #+#    #+#             */
-/*   Updated: 2025/01/15 13:10:16 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/01/16 15:47:10 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include "so_long.h"
 
 //specify window size
-#define WIDTH 1800
+#define WIDTH 1728
 #define HEIGHT 800
 
 
@@ -59,17 +59,24 @@ void key_handler(mlx_key_data_t keydata, void *param)
         	printf("Movements made: %d\n\n", game->move_count);
     }
 }
-// void mlx_set_window_size(mlx_t* mlx, int32_t new_width, int32_t new_height)
-// {
-// 	(void)mlx;
-// 	char **map;
-// 	map = read_map("map/map.ber");
-// 	int i;
-// 	i= 0;
-// 	new_height = ft_strlen(map[i]);
-// 	printf("%d", new_height);
-// 	new_width = 100;
-// }
+int get_window_height(char **map)
+{
+    int i;
+    i = 0;
+    int window_height;
+    while (map[i] != NULL)
+        i++;
+    window_height = i * 64;
+    ft_printf("\nwindow height is [%d]\n", window_height);
+    return (window_height);
+}
+int get_window_width(char **map)
+{
+    int window_width;
+    window_width = (ft_strlen(map[0]) * 64);
+    ft_printf("window width is [%d]\n", window_width);
+    return(window_width);    
+}
 
 //prints text on the top left of the window
 void	text(mlx_t *mlx)
@@ -78,30 +85,56 @@ void	text(mlx_t *mlx)
 	mlx_put_string(mlx, "Collect all your presents and get to your sleigh!", 20, 35);
 	
 }
-int32_t main(void)
+ 
+void check_map_file(int argc, char **argv)
+{
+    const char *file_extension;
+    size_t len_target;
+    size_t file_name_length;
+    
+    file_extension = ".ber";
+    file_name_length = ft_strlen(argv[1]);
+    len_target = ft_strlen(file_extension);
+	if (file_name_length < 4 || ft_strncmp(&argv[1][file_name_length - 4], ".ber", 4))
+		error_message("File extension invalid, please use a .ber file for the map");
+    if (argc != 2)
+        error_message("You must use exactly one file with a map. Example: ./so_long <map_file>");
+    if (argv[1] == NULL)
+        ft_printf("test");   
+}
+int32_t main(int argc, char **argv)
 {
     t_game game;
-    game.move_count = 0;
-
-    //initialize MLX42
-    if (!(game.mlx = mlx_init(WIDTH, HEIGHT, "MLX42 TESTING", true)))
-    {
-        puts(mlx_strerror(mlx_errno));
-        return (EXIT_FAILURE);
-    }
-
-    //read map
-    game.map = read_map("map/map.ber");
+    int window_width;
+    int window_height;
+    
+    // Read map from the provided file path
+    game.map = read_map(argv[1]);
     if (!game.map)
     {
         mlx_terminate(game.mlx);
         return (EXIT_FAILURE);
     }
-    
-    //go through map and check if its valid
+    // Validate map elements
     validate_map_elements(game.map);
-    
-    //initialize player image
+
+    //define window size
+    window_height = get_window_height(game.map);
+    window_width = get_window_width(game.map);
+    check_map_file(argc, argv);
+    game.move_count = 0;
+
+    // Initialize MLX42
+    if (!(game.mlx = mlx_init(window_width, window_height, "SAVE CHRISTMAS", true)))
+    {
+        puts(mlx_strerror(mlx_errno));
+        return (EXIT_FAILURE);
+    }
+
+
+    // get_window_width(game.map);
+
+    // Initialize player image
     mlx_texture_t *character = mlx_load_png("assets/santa.png");
     if (!character)
     {
@@ -117,20 +150,20 @@ int32_t main(void)
         mlx_terminate(game.mlx);
         return (EXIT_FAILURE);
     }
-    
-    //place images on the map
+
+    // Place images on the map
     place_map(game.mlx, game.map);
     mlx_image_to_window(game.mlx, game.player, 0, 0);
     place_player(&game);
-	place_collectibes(game.mlx, game.map);
+    place_collectibles(game.mlx, game.map);
     place_exit(game.mlx, game.map);
 
-    //mlx hooks and loops
+    // MLX hooks and loops
     mlx_key_hook(game.mlx, &key_handler, &game);
     text(game.mlx);
     mlx_loop(game.mlx);
 
-    //clean up
+    // Clean up
     mlx_delete_image(game.mlx, game.player);
     mlx_delete_texture(character);
     mlx_terminate(game.mlx);

@@ -6,7 +6,7 @@
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 10:46:24 by rojornod          #+#    #+#             */
-/*   Updated: 2025/01/15 13:11:07 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/01/16 13:45:27 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void place_player(t_game *game)
     }
 }
 
-void place_collectibes(mlx_t *mlx, char **map)
+void place_collectibles(mlx_t *mlx, char **map)
 {
 	mlx_texture_t *collectible_texture = mlx_load_png("assets/collectible.png");
     int i = 0;
@@ -134,16 +134,12 @@ char **read_map(const char *filename)
 	
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
-	{
-		perror("Error reading file");
-		return (NULL);
-	}
+		error_message("Can't read the file. Make sure it exists and it's valid");
 	char **map = malloc(100 * sizeof (char *));
 	if (!map)
 	{
-		perror("memory allocation failed");
 		close(fd);
-		return (NULL);
+		error_message("Memory allocation failed");
 	}
 	i = 0;
 	while ((line = get_next_line(fd)) != NULL)
@@ -154,7 +150,7 @@ char **read_map(const char *filename)
         map[i] = line;
         i++;
     }
-	map[i] = NULL;
+    map[i] = NULL;
 	close(fd);
 	return (map);
 }
