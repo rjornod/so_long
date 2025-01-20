@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map_validation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roberto <roberto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/10 14:00:17 by rojornod          #+#    #+#             */
-/*   Updated: 2025/01/16 17:02:55 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/01/17 16:54:05 by roberto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,18 @@
 
 void validate_map_elements(char **map)
 {
+    validate_map_closure(map);
+    validate_characters(map);
+}
+void    validate_characters(char **map)
+{
+    int j;
+    int i;
     int player_count = 0;
     int collect_count = 0;
     int exit_count = 0;
-    int i = 0;
-    int j;
-
-    // Count map elements
+    
+    i = 0;
     while (map[i])
     {
         j = 0;
@@ -32,35 +37,15 @@ void validate_map_elements(char **map)
                 collect_count++;
             else if (map[i][j] == 'E')
                 exit_count++;
+            else if ((map[i][j] != '1') && (map[i][j] != '0') && (map[i][j] != 'E') && (map[i][j] != 'P') && (map[i][j] != 'C'))
+                error_message("Invalid character on the map. Only 10EPC allowed");
             j++;
         }
         i++;
     }
-    ft_printf("Player count: %d\n", player_count);
-    ft_printf("Collectible count: %d\n", collect_count);
-    ft_printf("Exit count: %d\n", exit_count);
-    validate_map_closure(map);
-    //validate_characters(map);
     validation_messages(player_count, collect_count, exit_count);
 }
-// void    validate_characters(char **map)
-// {
-//     int j;
-//     int i;
     
-//     i = 0;
-//     j = 0;
-//     char	*allowed_characters = "10EPC";
-//     char	*in;
-//     while (map[i])
-//     // {
-// 	// 	while
-//     //     in = ft_strchr(allowed_characters, map[i][j]);
-// 	// 	if (!in)
-// 	// 		ft_printf("invalid character");
-//     //     j++;
-//     // }
-// }
 void    validate_map_closure(char **map)
 {
     int i = 0;
@@ -80,10 +65,7 @@ void    validate_map_closure(char **map)
         if ((ft_strlen(map[i]) -1) != row_length)
             error_message("The map is not rectangular");
         if (map[i][0] != '1' || map[i][row_length] != '1')
-        {
-           // ft_printf("\n[%d] [%s]\n", i, map[i]);
             error_message("The map is not closed properly on the sides");
-        }
         i++;
     }
     j = 0;
@@ -97,6 +79,9 @@ void    validate_map_closure(char **map)
 
 void validation_messages(int player_count, int collect_count, int exit_count)
 {
+    ft_printf("Player count: %d\n", player_count);
+    ft_printf("Collectible count: %d\n", collect_count);
+    ft_printf("Exit count: %d\n", exit_count);
     if (collect_count < 1)
         error_message("There must be at least one collectible on the map\n");
     if (exit_count != 1)

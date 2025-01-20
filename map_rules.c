@@ -131,18 +131,30 @@ char **read_map(const char *filename)
 	char	*line;
 	int		i;
 	int		fd;
+    char buffer[1];
 	
 	fd = open(filename, O_RDONLY);
-	if (fd < 0)
-		error_message("Can't read the file. Make sure it exists and it's valid");
-	char **map = malloc(100 * sizeof (char *));
-	if (!map)
-	{
-		close(fd);
-		error_message("Memory allocation failed");
-	}
-	i = 0;
-	while ((line = get_next_line(fd)) != NULL)
+    if (fd < 0)
+        error_message("Can't read the file. Make sure it exists and it's valid");
+    if (read(fd, buffer, 1) == 0)
+    {
+        close(fd);
+        error_message("The file is empty");
+    }
+    close(fd);
+    fd = open(filename, O_RDONLY);
+    if (fd < 0)
+        error_message("Can't read the file. Make sure it exists and it's valid");
+
+    char **map = malloc(100 * sizeof(char *));
+    if (!map)
+    {
+        close(fd);
+        error_message("Memory allocation failed");
+    }
+
+    i = 0;
+    while ((line = get_next_line(fd)) != NULL)
     {
         size_t len = ft_strlen(line);
         if (len > 0 && line[len - 1] == '\n')

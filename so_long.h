@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
+/*   By: roberto <roberto@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 16:00:30 by rojornod          #+#    #+#             */
-/*   Updated: 2025/01/16 16:49:00 by rojornod         ###   ########.fr       */
+/*   Updated: 2025/01/17 17:13:39 by roberto          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,26 +19,6 @@
 #include "lib/get_next_line/get_next_line.h"
 #include "lib/ft_printf/ft_printf.h"
 #define TILE_SIZE 64
-
-// typedef struct s_game
-// {
-//    	mlx_t		*mlx;
-//     int			move_count;
-// 	int			collectible_count;
-//     char		**map;
-//     mlx_image_t	*player;
-// 	mlx_image_t	*collectible;
-// } t_game;
-void place_collectibes(mlx_t *mlx, char **map);
-// typedef struct s_textures
-// {
-//     mlx_t *mlx;
-//     mlx_image_t *player;
-// 	mlx_image_t *collect;
-// 	mlx_image_t *wall;
-// 	mlx_image_t *floor;
-// 	mlx_image_t *enemy;
-// } t_textures;
 
 typedef struct s_image
 {
@@ -66,22 +46,33 @@ typedef struct s_game
 	int			player_position_y;
 	int			exit_position_x;
 	int			exit_position_y;
-	int			height;
-	int			width;
+	int			window_height;
+	int			window_width;
 	t_image		*textures;
 }	t_game;
 
+//window
+// int		get_window_height(char **map);
+// int 	get_window_width(char **map);
+//void 	get_window_size(t_game *game);
+void	start_mlx_window(t_game *game);
 
-int 	get_window_width(char **map);
 void	error_message(char *message);
+
+//map
 char 	**read_map(const char *filename);
 void 	place_map(mlx_t *mlx, char **map);
 void 	place_collectibles(mlx_t *mlx, char **map);
 void 	place_exit(mlx_t *mlx, char **map);
 void	place_player(t_game *game);
+
+//validation
 void 	validation_messages(int player_count, int collect_count, int exit_count);
 void    validate_characters(char **map);
 void	validate_map_elements(char **map);
 void 	validate_map_closure(char **map);
 
 // void	validate_map_height_width(char *map);
+
+//path check
+void check_player_position(t_game *game);
