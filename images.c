@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   textures.c                                         :+:      :+:    :+:   */
+/*   images.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rojornod <rojornod@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/09 14:07:47 by rojornod          #+#    #+#             */
-/*   Updated: 2025/01/22 15:46:59 by rojornod         ###   ########.fr       */
+/*   Created: 2025/01/22 14:33:21 by rojornod          #+#    #+#             */
+/*   Updated: 2025/01/22 15:15:04 by rojornod         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,3 @@ t_game	*add_player_texture(mlx_t *mlx, t_game *game)
 	game->player = load_texture(mlx, "assets/santa.png");
 	return (game);
 }
-
